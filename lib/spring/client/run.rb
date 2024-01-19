@@ -108,7 +108,7 @@ module Spring
       end
 
       def reset_env
-        ENV.slice(*Spring.reset_on_env)
+        ENV.select { |k, _| Spring.reset_on_env.include?(k) }.to_h
       end
 
       def server_process_env
@@ -251,7 +251,7 @@ module Spring
       end
 
       def spawn_env
-        ENV.slice(*Spring.spawn_on_env)
+        ENV.select { |k, _| Spring.spawn_on_env.include?(k) }.to_h
       end
     end
   end

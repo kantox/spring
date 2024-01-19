@@ -9,7 +9,7 @@ module Spring
       # client is not invoked for whatever reason, then the Kernel.exit won't
       # happen, and so we'll fall back to the lines after this block, which
       # should cause the "unsprung" version of the command to run.
-      LOADER = <<~CODE
+      LOADER = <<-CODE
         load File.expand_path("spring", __dir__)
       CODE
 
@@ -17,7 +17,7 @@ module Spring
       # binstub from the application process. Which means that in the application
       # process we'll execute the lines which come after the LOADER block, which
       # is what we want.
-      SPRING = <<~CODE
+      SPRING = <<-CODE
         #!/usr/bin/env ruby
 
         # This file loads Spring without loading other gems in the Gemfile in order to be fast.
@@ -26,10 +26,12 @@ module Spring
         if !defined?(Spring) && [nil, "development", "test"].include?(ENV["RAILS_ENV"])
           require "bundler"
 
-          Bundler.locked_gems.specs.find { |spec| spec.name == "spring" }&.tap do |spring|
-            Gem.use_paths Gem.dir, Bundler.bundle_path.to_s, *Gem.path
-            gem "spring", spring.version
-            require "spring/binstub"
+          if found = Bundler.locked_gems.specs.find { |spec| spec.name == "spring" }
+            found.tap do |spring|
+              Gem.use_paths Gem.dir, Bundler.bundle_path.to_s, *Gem.path
+              gem "spring", spring.version
+              require "spring/binstub"
+            end
           end
         end
       CODE
