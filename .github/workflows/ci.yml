@@ -20,7 +20,7 @@ jobs:
         allow-failure: [false]
         frozen-string: [false]
         push-gem: [true]
-        bundler:  ['1.17.3']
+        bundler:  ['2.3']
         include:
           - ruby-version: '3.1'
             # TODO: https://github.com/ruby/time/commit/6b8cc4799ef8c62efd5b414c3d7580ff3a7ecdec
@@ -65,12 +65,12 @@ jobs:
             allow-failure: false
             frozen-string: true
             push-gem: false
-            bundler: '1.17.3'
+            bundler: 'default'
           - ruby-version: '2.5'
             allow-failure: false
             frozen-string: true
             push-gem: false
-            bundler: '1.17.3'
+            bundler: 'default'
           - ruby-version: '2.4'
             allow-failure: false
             frozen-string: true
