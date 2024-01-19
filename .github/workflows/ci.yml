@@ -94,7 +94,7 @@ jobs:
 
       - run: echo "{RUBYOPT}={--enable-frozen-string-literal}" >> $GITHUB_ENV
         if: ${{ matrix.frozen-string }}
-      - run: bundle exec rspec
+      - run: bundle exec rake
       # another option is to search for something like [PUSH_BETA_GEM] in event.payload.commits[0].message
       - name: Publish Beta to GitHub Packages
         if: ${{ github.event.ref != 'refs/heads/master' && ! contains(github.event.ref, 'refs/tags') && matrix.push-gem }}
