@@ -1,6 +1,10 @@
 module Spring
   def self.with_unbundled_env
-    env = original_env
+    Bundler.send(:with_env, unbundled_env) { yield }
+  end
+
+  def self.unbundled_env
+    env = Bundler.original_env
 
     if env.key?("BUNDLER_ORIG_MANPATH")
       env["MANPATH"] = env["BUNDLER_ORIG_MANPATH"]
