@@ -82,7 +82,7 @@ jobs:
             push-gem: false
             bundler: '1.17.3'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
